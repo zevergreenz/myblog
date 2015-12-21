@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	//==========================================
 	//	CONNECT TO THE LOCAL DATABASE
 	//==========================================
-	$user_name = "root";
-	$pass_word = "";
+	$user_name = "blogacc";
+	$pass_word = "blogacc";
 	$database = "myblog";
 	$server = "127.0.0.1";
 	$tbl_name = "blogpost";
