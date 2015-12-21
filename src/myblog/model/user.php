@@ -1,28 +1,34 @@
 <?php 
-	function delete_post($title, $writer, $time, $content) {
-		//==========================================
-		//	CONNECT TO THE LOCAL DATABASE
-		//==========================================
-		$user_name = "root";
-		$pass_word = "";
-		$database = "myblog";
-		$server = "127.0.0.1";
-		$tbl_name = "blogpost";
-
-		// Create connection
-		$conn = mysqli_connect($server, $user_name, $pass_word, $database);
-		if (!$conn) {
-			die("Connection failed: ".mysqli_connect_error());
-		}
-
-		$sql = "DELETE FROM `blogpost` WHERE title=$title AND writer=$writer AND time=$time AND content=$content";
-
-		if (mysqli_query($conn, $sql)) {
-		    header("Location: http://localhost/myblog/index.php?Message='Detele Post Sucessful'");
-		} else {
-		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
-
-		mysqli_close($conn);
+	function login() {
+		if (!empty($_SESSION['username'])) {
+            echo "<p>Hello ".trim($_SESSION['username'], "'")."</p>"; 
+            echo '       
+            <form class="form-signin" action="/myblog/model/logout.php" method="POST">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Log out</button>
+                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+            </form>
+            <br>
+            <form class="form-signin" action="/myblog/view/newpost.php" method="POST">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    New Post</button>
+            </form>';
+        } else {
+            echo '<p>You are not logged in </p>
+            <h4>Log in: </h4>
+            <form class="form-signin" action="/myblog/model/login.php" method="POST">
+                <input type="text" class="form-control" placeholder="User name" name="ID" required autofocus>
+                <br>
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
+                <br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Sign in</button>
+                <label class="checkbox pull-left">
+                    <input type="checkbox" value="remember-me">
+                    Remember me
+                </label>
+                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+            </form>';
+        }
 	}
 ?>

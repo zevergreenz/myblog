@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	$title = htmlspecialchars($title);
 	$content = htmlspecialchars($content);
-	$writer = $_SESSION['username'];
+	$writer = trim($_SESSION['username'], "'");
 
 	//==========================================
 	//	CONNECT TO THE LOCAL DATABASE
@@ -39,10 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		die("Connection failed: ".mysqli_connect_error());
 	}
 
-	$sql = "INSERT INTO `blogpost`(`title`, `writer`, `time`, `content`) VALUES ('$title', $writer, NOW(), '$content')";
+	$sql = "DELETE FROM $tbl_name WHERE title = '$title' AND content = '$content' AND writer = '$writer' LIMIT 1";
 
-	if (mysqli_query($conn, $sql)) {
-	    header("Location: ../index.php?Message='Post Sucessful'");
+	mysqli_query($conn, $sql);
+
+	if (mysqli_affected_rows($conn) == 1) {
+	    header("Location: ../index.php?Message='Delete Sucessful'");
 	} else {
 	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}

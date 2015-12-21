@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>New Blogpost</title>
+    <title>Modify Blog Post</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/myblog/static/css/bootstrap.min.css" rel="stylesheet">
@@ -72,17 +72,21 @@
             <div class="col-md-9">
 
                 <h1 class="page-header">
-                    New Blogpost
+                    Modify Blog Post
                     <!-- <small>Secondary Text</small> -->
                 </h1>
 
                 <?php 
+                    $title = $_POST['title'];
+                    $content = $_POST['content'];
                     if (!empty($_SESSION['username'])) {
                         echo '       
-                        <form class="form-signin" action="../model/post.php" method="POST">
-                            <input type="text" class="form-control" placeholder="Post Title" name="title" required autofocus>
+                        <form class="form-signin" action="../model/modify.php" method="POST">
+                            <input type="hidden" name="title" value="'.$title.'">
+                            <input type="hidden" name="content" value="'.$content.'">
+                            <input type="text" class="form-control" name="newtitle" value="'.$title.'" required autofocus>
                             <br>
-                            <textarea class="form-control" rows="20" name="content"></textarea>
+                            <textarea class="form-control" rows="20" name="newcontent">'.$content.'</textarea>
                             <br>
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Post</button>
                         </form>';

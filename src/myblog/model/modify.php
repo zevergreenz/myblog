@@ -19,10 +19,14 @@ function quote_smart($value, $handle) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	$title = $_POST['title'];
 	$content = $_POST['content'];
+	$newtitle = $_POST['newtitle'];
+	$newcontent = $_POST['newcontent'];
 
 	$title = htmlspecialchars($title);
 	$content = htmlspecialchars($content);
-	$writer = $_SESSION['username'];
+	$newtitle = htmlspecialchars($newtitle);
+	$newcontent = htmlspecialchars($newcontent);
+	$writer = trim($_SESSION['username'],"'");
 
 	//==========================================
 	//	CONNECT TO THE LOCAL DATABASE
@@ -39,10 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		die("Connection failed: ".mysqli_connect_error());
 	}
 
-	$sql = "INSERT INTO `blogpost`(`title`, `writer`, `time`, `content`) VALUES ('$title', $writer, NOW(), '$content')";
+	$sql = "UPDATE $tbl_name SET title = '$newtitle', content = '$newcontent' WHERE title = '$title' AND content = '$content' AND writer = '$writer'";
 
 	if (mysqli_query($conn, $sql)) {
-	    header("Location: ../index.php?Message='Post Sucessful'");
+	    header("Location: ../index.php?Message='Modify Sucessful'");
 	} else {
 	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 	}
