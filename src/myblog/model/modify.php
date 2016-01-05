@@ -17,10 +17,10 @@ function quote_smart($value, $handle) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-	$title = $_POST['title'];
-	$content = $_POST['content'];
-	$newtitle = $_POST['newtitle'];
-	$newcontent = $_POST['newcontent'];
+	$title = addslashes($_POST['title']);
+	$content = addslashes($_POST['content']);
+	$newtitle = addslashes($_POST['newtitle']);
+	$newcontent = addslashes($_POST['newcontent']);
 
 	$title = htmlspecialchars($title);
 	$content = htmlspecialchars($content);

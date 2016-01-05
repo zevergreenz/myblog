@@ -47,20 +47,6 @@
                 </button>
                 <a class="navbar-brand" href="/myblog/index.php">My Blog</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -75,8 +61,8 @@
             <div class="col-md-9">
 
                 <h1 class="page-header">
-                    Newest Blog posts
-                    <small>Secondary Text</small>
+                    Newest Blog Posts
+                    <small>by all authors</small>
                 </h1>
 
                 <?php
@@ -116,7 +102,7 @@
                             <br>
                             <p>'.$content.'</p>';
                         // Delete Button
-                        if ((!empty($_SESSION['username'])) && (trim($_SESSION['username'], "'") == $writer)) {
+                        if ((!empty($_SESSION['username'])) && (strtolower(trim($_SESSION['username'], "'")) == strtolower($writer))) {
                             echo '       
                             <form class="form-signin" action="/myblog/model/delete.php" method="POST">
                                 <input type="hidden" name="title" value="'.$title.'">
@@ -170,7 +156,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; MY BLOG 2015</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

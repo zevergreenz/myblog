@@ -42,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$uname = quote_smart($uname, $db_handle);
 		$pword = quote_smart($pword, $db_handle);
 
-		$SQL = "SELECT * FROM $tbl_name WHERE ID = $uname AND password = $pword";
+		$SQL = "SELECT * FROM $tbl_name WHERE ID = $uname 
+										AND BINARY password = $pword";
 		$result = mysql_query($SQL);
 		$num_rows = mysql_num_rows($result);
 
@@ -54,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 			if ($num_rows > 0) {
 				// session_start();
 				$_SESSION['username'] = $uname;
-				header ("Location: http://localhost/myblog/index.php");
+				header ("Location: /myblog/index.php");
 			} else {
 				// session_start();
 				$_SESSION['login'] = "";
-				header ("Location: http://localhost/myblog/index.php");
+				header ("Location: /myblog/index.php");
 			}	
 		} else {
 			$errorMessage = "Error logging on";
